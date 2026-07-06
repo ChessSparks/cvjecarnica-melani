@@ -8,7 +8,7 @@
     class="py-[8px] navigation fixed bg-cyan-500 w-full transition-all duration-1000 ease-in-out z-50"
   >
     <div
-      class="container mx-auto px-4 flex items-center justify-between transition-all duration-1000 ease-in-out"
+      class="container mx-auto px-4 relative flex items-center justify-between transition-all duration-1000 ease-in-out"
     >
       <div class="flex items-center gap-[20px]">
         <img
@@ -19,19 +19,20 @@
           @click="$router.push('/')"
         />
         <LanguageSelectorComponent :isSectionVisible="isSectionVisible" />
-      </div>
-      <div class="hidden lg:flex space-x-8 text-gray-700 items-center">
         <RouterLink
           to="/"
           :class="{
             'text-white hover:text-gray-900': !isSectionVisible,
             'text-white': isSectionVisible,
           }"
-          class="font-jacques uppercase hover:text-cyan-400"
+          class="hidden lg:inline font-jacques uppercase hover:text-cyan-400"
         >
           {{ $t("naslovnica") }}
         </RouterLink>
-
+      </div>
+      <div
+        class="hidden lg:flex space-x-8 text-gray-700 items-center absolute left-1/2 -translate-x-1/2"
+      >
         <div class="relative group">
           <RouterLink
             to="#"
@@ -201,7 +202,9 @@
             </RouterLink>
           </div>
         </div>
+      </div>
 
+      <div class="hidden lg:flex items-center">
         <button
           @click="redirectToContact"
           :class="{
@@ -210,7 +213,7 @@
             'text-white border border-white hover:border-white':
               isSectionVisible,
           }"
-          class="hover:bg-cyan-500 hover:text-white hover:shadow-lg hover:shadow-cyan-500/50 transition-all duration-300 ease-in-out transform hover:scale-105 font-jacques uppercase w-[200px] px-4 py-2 bg-transparent rounded-md hover:text-cyan-400 hover:border-cyan-400 ml-[60px]"
+          class="hover:bg-cyan-500 hover:text-white hover:shadow-lg hover:shadow-cyan-500/50 transition-all duration-300 ease-in-out transform hover:scale-105 font-jacques uppercase w-[200px] px-4 py-2 bg-transparent rounded-md"
         >
           {{ $t("kontakt") }}
         </button>
@@ -246,9 +249,10 @@
       class="fixed top-0 right-0 w-full bg-[#353638]/95 backdrop-blur-sm transform transition-transform duration-300 ease-in-out z-50"
     >
       <div
-        class="nav-background-mobile flex h-[137px] justify-between items-center p-6 border-b border-gray-700/50"
+        class="nav-background-mobile relative flex h-[137px] justify-end items-center p-6 border-b border-gray-700/50"
       >
-        <span class="text-white font-jacques text-xl"
+        <span
+          class="absolute left-1/2 -translate-x-1/2 text-white font-jacques text-xl"
           ><svg
             class="w-[200px]"
             viewBox="0 0 600 153"
@@ -435,7 +439,7 @@
 
         <button
           @click="redirectToContact"
-          class="w-[200px] font-jacques uppercase px-4 py-2 bg-transparent border border-cyan-500 text-cyan-500 rounded-md hover:bg-cyan-500 text-lg w-full mt-4"
+          class="w-[200px] font-jacques uppercase px-4 py-2 bg-transparent border border-cyan-500 text-cyan-500 rounded-md hover:bg-cyan-500 hover:text-white text-lg w-full mt-4"
         >
           {{ $t("kontakt") }}
         </button>

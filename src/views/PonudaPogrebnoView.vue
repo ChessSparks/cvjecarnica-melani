@@ -31,7 +31,6 @@
           <button
             v-for="(filter, key) in {
               lijesovi: t('coffins_offer'),
-              lampioni: t('funeral_equipment'),
               prijevoz_pokojnika: t('prijevoz_pokojnika'),
             }"
             :key="key"
@@ -60,44 +59,15 @@
           <div
             v-if="filteri.prijevoz_pokojnika"
             :class="{ 'animate-fade-in': filteri.prijevoz_pokojnika }"
-            class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 mb-[50px] mx-auto max-w-2xl px-4 py-16 sm:px-6 sm:py-24 lg:max-w-7xl lg:px-8 bg-white"
+            class="mb-[50px] mx-auto max-w-2xl px-4 py-16 sm:px-6 sm:py-24 lg:max-w-7xl lg:px-8 bg-white"
           >
-            <div
-              v-for="image in prijevoz"
-              :key="image.filename"
-              @click="openModal(image)"
-              :style="{
-                backgroundImage: `url(${require(`@/assets/ponuda_pogrebno/prijevoz_pokojnika/${image.filename}`)})`,
-              }"
-              class="hover:shadow-[0_0_20px_rgba(255,255,255,0.4)] transition-transform hover:scale-105 h-[200px] w-full lg:w-full xl:h-[300px] lg:max-w-full sm:max-w-[350px] sm:mx-auto rounded-lg bg-cover bg-center cursor-pointer"
-            ></div>
+            <ImageGallery :images="prijevoz" />
           </div>
         </div>
       </div>
     </div>
 
     <FooterComponent />
-
-    <div
-      v-if="isModalOpen"
-      class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-75 p-4"
-      @click.self="closeModal"
-    >
-      <div class="relative">
-        <img
-          :src="selectedImageSrc"
-          alt="Full Screen Image"
-          class="object-contain"
-          style="max-width: calc(100vw - 2rem); max-height: calc(100vh - 2rem)"
-        />
-        <button
-          @click="closeModal"
-          class="absolute top-2 right-2 text-primary text-3xl font-bold focus:outline-none"
-        >
-          &times;
-        </button>
-      </div>
-    </div>
   </div>
 </template>
 
@@ -107,6 +77,8 @@ import ProductListComponent from "@/components/ProductListComponent.vue";
 import FooterComponent from "../components/FooterComponent.vue";
 import NavbarComponent from "@/components/NavbarComponent.vue";
 import HeroBanner from "@/components/HeroBanner.vue";
+import ImageGallery from "@/components/ImageGallery.vue";
+import { buildGalleryImages } from "@/utils/gallery";
 
 export default {
   name: "PonudaPogrebno",
@@ -115,6 +87,7 @@ export default {
     ProductListComponent,
     NavbarComponent,
     HeroBanner,
+    ImageGallery,
   },
   props: {
     filter: {
@@ -134,7 +107,6 @@ export default {
       },
       lijesoviPonuda: [],
       urnePonuda: [],
-      lampioniPonuda: [],
       prijevoz: [],
       filteri: {
         lijesovi: true,
@@ -142,8 +114,6 @@ export default {
         prijevoz_pokojnika: true,
         kremiranje: true,
       },
-      isModalOpen: false,
-      selectedImage: null,
     };
   },
   setup() {
@@ -157,27 +127,13 @@ export default {
     }
   },
   created() {
-    const lampioniPonuda = require.context(
-      "@/assets/ponuda_pogrebno/lampioni",
-      false,
-      /\.(png|jpe?g|svg)$/
+    this.prijevoz = buildGalleryImages(
+      require.context(
+        "@/assets/ponuda_pogrebno/prijevoz_pokojnika",
+        false,
+        /\.(png|jpe?g|svg)$/
+      )
     );
-    this.lampioniPonuda = lampioniPonuda.keys().map((filename) => ({
-      filename: filename.slice(2),
-      title: filename.slice(2, -4),
-      alt: filename.slice(2, -4),
-    }));
-
-    const prijevoz = require.context(
-      "@/assets/ponuda_pogrebno/prijevoz_pokojnika",
-      false,
-      /\.(png|jpe?g|svg)$/
-    );
-    this.prijevoz = prijevoz.keys().map((filename) => ({
-      filename: filename.slice(2),
-      title: filename.slice(2, -4),
-      alt: filename.slice(2, -4),
-    }));
 
     const urnePonuda = require.context(
       "@/assets/ponuda_pogrebno/urne",
@@ -214,17 +170,6 @@ export default {
   },
   beforeUnmount() {
     document.body.style.overflow = "";
-  },
-  computed: {
-    selectedImageSrc() {
-      if (!this.selectedImage) return "";
-      try {
-        return require(`@/assets/ponuda_pogrebno/prijevoz_pokojnika/${this.selectedImage.filename}`);
-      } catch (error) {
-        console.error("Error loading image:", error);
-        return "";
-      }
-    },
   },
   watch: {
     "$route.query.filter": {
@@ -285,18 +230,6 @@ export default {
 
     redirectToContact() {
       this.$router.push("/contact-melani");
-    },
-
-    openModal(image) {
-      this.selectedImage = image;
-      this.isModalOpen = true;
-      document.body.style.overflow = "hidden"; // Prevent background scrolling
-    },
-
-    closeModal() {
-      this.isModalOpen = false;
-      this.selectedImage = null;
-      document.body.style.overflow = "auto";
     },
   },
 };

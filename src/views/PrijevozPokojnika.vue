@@ -57,37 +57,9 @@
       </div>
     </div>
     <div
-      class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 mb-[50px] mx-auto max-w-2xl px-4 py-16 sm:px-6 sm:py-24 lg:max-w-7xl lg:px-8 bg-white"
+      class="mb-[50px] mx-auto max-w-2xl px-4 py-16 sm:px-6 sm:py-24 lg:max-w-7xl lg:px-8 bg-white"
     >
-      <div
-        v-for="image in prijevoz"
-        :key="image.filename"
-        :style="{
-          backgroundImage: `url(${require(`@/assets/ponuda_pogrebno/prijevoz_pokojnika/${image.filename}`)})`,
-        }"
-        class="hover:shadow-[0_0_20px_rgba(255,255,255,0.4)] transition-transform hover:scale-105 h-[200px] w-full lg:w-full xl:h-[300px] lg:max-w-full sm:max-w-[350px] sm:mx-auto rounded-lg bg-cover bg-center cursor-pointer"
-        @click="openModal(image)"
-      ></div>
-    </div>
-    <div
-      v-if="isModalOpen"
-      class="fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center z-50 p-4"
-      @click.self="closeModal"
-    >
-      <div class="relative">
-        <img
-          :src="currentImageSrc"
-          alt="Full-screen image"
-          class="object-contain"
-          style="max-width: calc(100vw - 2rem); max-height: calc(100vh - 2rem)"
-        />
-        <button
-          @click="closeModal"
-          class="absolute top-4 right-4 text-white text-2xl font-bold"
-        >
-          ✕
-        </button>
-      </div>
+      <ImageGallery :images="prijevoz" />
     </div>
 
     <FooterComponent />
@@ -99,6 +71,8 @@ import { useI18n } from "vue-i18n";
 import FooterComponent from "../components/FooterComponent.vue";
 import NavbarComponent from "@/components/NavbarComponent.vue";
 import HeroBanner from "@/components/HeroBanner.vue";
+import ImageGallery from "@/components/ImageGallery.vue";
+import { buildGalleryImages } from "@/utils/gallery";
 
 export default {
   name: "PonudaPogrebno",
@@ -106,6 +80,7 @@ export default {
     FooterComponent,
     NavbarComponent,
     HeroBanner,
+    ImageGallery,
   },
   props: {
     filter: {
@@ -117,8 +92,6 @@ export default {
     return {
       isSectionVisible: true,
       prijevoz: [],
-      isModalOpen: false,
-      currentImage: null,
     };
   },
   setup() {
@@ -129,30 +102,16 @@ export default {
     document.body.style.overflow = "";
   },
   created() {
-    const prijevoz = require.context(
-      "@/assets/ponuda_pogrebno/prijevoz_pokojnika",
-      false,
-      /\.(png|jpe?g|svg)$/
+    this.prijevoz = buildGalleryImages(
+      require.context(
+        "@/assets/ponuda_pogrebno/prijevoz_pokojnika",
+        false,
+        /\.(png|jpe?g|svg)$/
+      )
     );
-    this.prijevoz = prijevoz.keys().map((filename) => ({
-      filename: filename.slice(2),
-      title: filename.slice(2, -4),
-      alt: filename.slice(2, -4),
-    }));
   },
   mounted() {
     this.initIntersectionObserver();
-  },
-  computed: {
-    currentImageSrc() {
-      if (!this.currentImage) return "";
-      try {
-        return require(`@/assets/ponuda_pogrebno/prijevoz_pokojnika/${this.currentImage.filename}`);
-      } catch (error) {
-        console.error("Error loading image:", error);
-        return "";
-      }
-    },
   },
   methods: {
     initIntersectionObserver() {
@@ -170,17 +129,6 @@ export default {
       });
 
       observer.observe(section);
-    },
-
-    openModal(image) {
-      this.currentImage = image;
-      this.isModalOpen = true;
-      document.body.style.overflow = "hidden"; // Prevent background scrolling
-    },
-    closeModal() {
-      this.currentImage = null;
-      this.isModalOpen = false;
-      document.body.style.overflow = "auto";
     },
   },
 };

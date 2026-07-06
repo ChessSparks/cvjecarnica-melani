@@ -62,127 +62,43 @@
           <div
             v-if="filteri.cvijece_za_lijes"
             :class="{ 'animate-fade-in': filteri.cvijece_za_lijes }"
-            class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 mb-[50px]"
+            class="mb-[50px]"
           >
-            <h1
-              class="min-h-[100px] shadow-[0_0_20px_rgba(255,255,255,0.4)] bg-gradient-to-br from-slate-800 via-slate-900 to-blue-950 flex items-center text-center text-2xl border rounded-xl justify-center"
-            >
-              {{ t("coffin_flowers") }}
-            </h1>
-            <div
-              v-for="cvijece in cvijece_za_lijes"
-              :key="cvijece.filename"
-              @click="openModal('cvijece_za_lijes', cvijece)"
-              :style="{
-                backgroundImage: `url(${require(`@/assets/ponuda_cvijeca/cvijece_za_lijes/${cvijece.filename}`)})`,
-              }"
-              class="hover:shadow-[0_0_20px_rgba(255,255,255,0.4)] transition-transform hover:scale-105 h-[200px] w-full lg:w-full xl:h-[300px] lg:max-w-full sm:max-w-[350px] sm:mx-auto rounded-lg bg-cover bg-center cursor-pointer"
-            ></div>
+            <h2 class="text-2xl font-normal mb-6">{{ t("coffin_flowers") }}</h2>
+            <ImageGallery :images="cvijece_za_lijes" />
           </div>
           <div
             v-if="filteri.vijenci"
             :class="{ 'animate-fade-in': filteri.vijenci }"
-            class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 mb-[50px]"
+            class="mb-[50px]"
           >
-            <h1
-              class="min-h-[100px] shadow-[0_0_20px_rgba(255,255,255,0.4)] bg-gradient-to-br from-slate-800 via-slate-900 to-blue-950 flex items-center text-center text-2xl border rounded-xl justify-center"
-            >
-              {{ t("vijenci") }}
-            </h1>
-            <div
-              v-for="vijenac in vijenci"
-              :key="vijenac.filename"
-              @click="openModal('vijenci', vijenac)"
-              :style="{
-                backgroundImage: `url(${require(`@/assets/ponuda_cvijeca/vijenci/${vijenac.filename}`)})`,
-              }"
-              class="hover:shadow-[0_0_20px_rgba(255,255,255,0.4)] transition-transform hover:scale-105 h-[200px] w-full lg:w-full xl:h-[300px] lg:max-w-full sm:max-w-[350px] sm:mx-auto rounded-lg bg-cover bg-center cursor-pointer"
-            ></div>
+            <h2 class="text-2xl font-normal mb-6">{{ t("vijenci") }}</h2>
+            <ImageGallery :images="vijenci" />
           </div>
           <div
             v-if="filteri.aranzmani"
             :class="{ 'animate-fade-in': filteri.aranzmani }"
-            class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 mb-[50px]"
+            class="mb-[50px]"
           >
-            <h1
-              class="min-h-[100px] shadow-[0_0_20px_rgba(255,255,255,0.4)] bg-gradient-to-br from-slate-800 via-slate-900 to-blue-950 flex items-center text-center text-2xl border rounded-xl justify-center"
-            >
-              {{ t("arrangements") }}
-            </h1>
-            <div
-              v-for="aranzman in aranzmani"
-              :key="aranzman.filename"
-              @click="openModal('aranzmani', aranzman)"
-              :style="{
-                backgroundImage: `url(${require(`@/assets/ponuda_cvijeca/aranzmani/${aranzman.filename}`)})`,
-              }"
-              class="hover:shadow-[0_0_20px_rgba(255,255,255,0.4)] transition-transform hover:scale-105 h-[200px] w-full lg:w-full xl:h-[300px] lg:max-w-full sm:max-w-[350px] sm:mx-auto rounded-lg bg-cover bg-center cursor-pointer"
-            ></div>
+            <h2 class="text-2xl font-normal mb-6">{{ t("arrangements") }}</h2>
+            <ImageGallery :images="aranzmani" />
           </div>
           <div
             v-if="filteri.buketi"
             :class="{ 'animate-fade-in': filteri.buketi }"
-            class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 mb-[50px]"
+            class="mb-[50px]"
           >
-            <h1
-              class="min-h-[100px] shadow-[0_0_20px_rgba(255,255,255,0.4)] bg-gradient-to-br from-slate-800 via-slate-900 to-blue-950 flex items-center text-center text-2xl border rounded-xl justify-center"
-            >
-              {{ t("bouquet") }}
-            </h1>
-            <div
-              v-for="buketi in buketiAranzmani"
-              :key="buketi.filename"
-              @click="openModal('buketi', buketi)"
-              :style="{
-                backgroundImage: `url(${require(`@/assets/ponuda_cvijeca/buketi_i_aranzmani/${buketi.filename}`)})`,
-              }"
-              class="hover:shadow-[0_0_20px_rgba(255,255,255,0.4)] transition-transform hover:scale-105 h-[200px] w-full lg:w-full xl:h-[300px] lg:max-w-full sm:max-w-[350px] sm:mx-auto rounded-lg bg-cover bg-center cursor-pointer"
-            ></div>
+            <h2 class="text-2xl font-normal mb-6">{{ t("bouquet") }}</h2>
+            <ImageGallery :images="buketiAranzmani" />
           </div>
 
           <div
             v-if="filteri.loncanice"
             :class="{ 'animate-fade-in': filteri.loncanice }"
-            class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 mb-[50px]"
+            class="mb-[50px]"
           >
-            <h1
-              class="min-h-[100px] shadow-[0_0_20px_rgba(255,255,255,0.4)] bg-gradient-to-br from-slate-800 via-slate-900 to-blue-950 flex items-center text-center text-2xl border rounded-xl justify-center"
-            >
-              {{ t("loncanice") }}
-            </h1>
-            <div
-              v-for="loncanica in loncanice"
-              :key="loncanica.filename"
-              @click="openModal('loncanice', loncanica)"
-              :style="{
-                backgroundImage: `url(${require(`@/assets/ponuda_cvijeca/loncanice/${loncanica.filename}`)})`,
-              }"
-              class="hover:shadow-[0_0_20px_rgba(255,255,255,0.4)] transition-transform hover:scale-105 h-[200px] w-full lg:w-full xl:h-[300px] lg:max-w-full sm:max-w-[350px] sm:mx-auto rounded-lg bg-cover bg-center cursor-pointer"
-            ></div>
-          </div>
-
-          <div
-            v-if="isModalOpen"
-            class="fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center z-50 p-4"
-            @click.self="closeModal"
-          >
-            <div class="relative">
-              <img
-                :src="currentImageSrc"
-                alt="Full-screen image"
-                class="object-contain"
-                style="
-                  max-width: calc(100vw - 2rem);
-                  max-height: calc(100vh - 2rem);
-                "
-              />
-              <button
-                @click="closeModal"
-                class="absolute top-4 right-4 text-white text-2xl font-bold"
-              >
-                ✕
-              </button>
-            </div>
+            <h2 class="text-2xl font-normal mb-6">{{ t("loncanice") }}</h2>
+            <ImageGallery :images="loncanice" />
           </div>
         </div>
       </div>
@@ -197,6 +113,8 @@ import { useI18n } from "vue-i18n";
 import FooterComponent from "../components/FooterComponent.vue";
 import HeroBanner from "@/components/HeroBanner.vue";
 import NavbarComponent from "@/components/NavbarComponent.vue";
+import ImageGallery from "@/components/ImageGallery.vue";
+import { buildGalleryImages } from "@/utils/gallery";
 
 export default {
   name: "HomeView",
@@ -204,6 +122,7 @@ export default {
     HeroBanner,
     NavbarComponent,
     FooterComponent,
+    ImageGallery,
   },
   props: {
     filter: {
@@ -216,9 +135,6 @@ export default {
       isSectionVisible: true,
       isMobileMenuOpen: false,
       submenuPonuda: false,
-      isModalOpen: false,
-      modalType: null,
-      modalImage: null,
       formData: {
         name: "",
         email: "",
@@ -301,23 +217,6 @@ export default {
           return "ponuda-hero.jpg";
       }
     },
-    currentImageSrc() {
-      if (!this.modalImage || !this.modalType) return "";
-      const folderMapping = {
-        cvijece_za_lijes: "cvijece_za_lijes",
-        vijenci: "vijenci",
-        aranzmani: "aranzmani",
-        buketi: "buketi_i_aranzmani",
-        loncanice: "loncanice",
-      };
-      const folder = folderMapping[this.modalType];
-      try {
-        return require(`@/assets/ponuda_cvijeca/${folder}/${this.modalImage.filename}`);
-      } catch (error) {
-        console.error("Error loading image:", error);
-        return "";
-      }
-    },
   },
   watch: {
     "$route.query.filter": {
@@ -328,60 +227,33 @@ export default {
     },
   },
   created() {
-    const loncanice = require.context(
-      "@/assets/ponuda_cvijeca/loncanice",
-      false,
-      /\.(png|jpe?g|svg)$/
+    this.loncanice = buildGalleryImages(
+      require.context("@/assets/ponuda_cvijeca/loncanice", false, /\.(png|jpe?g|svg)$/)
     );
-    this.loncanice = loncanice.keys().map((filename) => ({
-      filename: filename.slice(2),
-      title: filename.slice(2, -4),
-      alt: filename.slice(2, -4),
-    }));
 
-    const buketiAranzmani = require.context(
-      "@/assets/ponuda_cvijeca/buketi_i_aranzmani",
-      false,
-      /\.(png|jpe?g|svg)$/
+    this.buketiAranzmani = buildGalleryImages(
+      require.context(
+        "@/assets/ponuda_cvijeca/buketi_i_aranzmani",
+        false,
+        /\.(png|jpe?g|svg)$/
+      )
     );
-    this.buketiAranzmani = buketiAranzmani.keys().map((filename) => ({
-      filename: filename.slice(2),
-      title: filename.slice(2, -4),
-      alt: filename.slice(2, -4),
-    }));
 
-    const aranzmani = require.context(
-      "@/assets/ponuda_cvijeca/aranzmani",
-      false,
-      /\.(png|jpe?g|svg)$/
+    this.aranzmani = buildGalleryImages(
+      require.context("@/assets/ponuda_cvijeca/aranzmani", false, /\.(png|jpe?g|svg)$/)
     );
-    this.aranzmani = aranzmani.keys().map((filename) => ({
-      filename: filename.slice(2),
-      title: filename.slice(2, -4),
-      alt: filename.slice(2, -4),
-    }));
 
-    const vijenci = require.context(
-      "@/assets/ponuda_cvijeca/vijenci",
-      false,
-      /\.(png|jpe?g|svg)$/
+    this.vijenci = buildGalleryImages(
+      require.context("@/assets/ponuda_cvijeca/vijenci", false, /\.(png|jpe?g|svg)$/)
     );
-    this.vijenci = vijenci.keys().map((filename) => ({
-      filename: filename.slice(2),
-      title: filename.slice(2, -4),
-      alt: filename.slice(2, -4),
-    }));
 
-    const cvijece_za_lijes = require.context(
-      "@/assets/ponuda_cvijeca/cvijece_za_lijes",
-      false,
-      /\.(png|jpe?g|svg)$/
+    this.cvijece_za_lijes = buildGalleryImages(
+      require.context(
+        "@/assets/ponuda_cvijeca/cvijece_za_lijes",
+        false,
+        /\.(png|jpe?g|svg)$/
+      )
     );
-    this.cvijece_za_lijes = cvijece_za_lijes.keys().map((filename) => ({
-      filename: filename.slice(2),
-      title: filename.slice(2, -4),
-      alt: filename.slice(2, -4),
-    }));
   },
   beforeUnmount() {
     document.body.style.overflow = "auto";
@@ -415,18 +287,6 @@ export default {
           this.filteri[key] = key === filterArgument;
         });
       }
-    },
-    openModal(type, image) {
-      this.modalType = type;
-      this.modalImage = image;
-      this.isModalOpen = true;
-      document.body.style.overflow = "hidden";
-    },
-    closeModal() {
-      this.modalType = null;
-      this.modalImage = null;
-      this.isModalOpen = false;
-      document.body.style.overflow = "auto";
     },
     resetingAllFilters() {
       Object.keys(this.filteri).forEach((key) => {
